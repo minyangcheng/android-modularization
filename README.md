@@ -11,9 +11,9 @@
 1. 项目代码整体上分成两层，公共代码放在common、umeng、ocrlibrary，业务类代码放在app内。
 2. app module内部采用的是mvc模式，ui部分按照业务进行分包
 
-![](imgs/arc_1.jpg)
+![](./imgs/arc_1.jpg)
 
-![](imgs/arc_2.jpg)
+![](./imgs/arc_2.jpg)
 
 ### 痛点
 
