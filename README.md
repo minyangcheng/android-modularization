@@ -11,9 +11,9 @@
 1. 项目代码整体上分成两层，公共代码放在common、umeng、ocrlibrary，业务类代码放在app内。
 2. app module内部采用的是mvc模式，ui部分按照业务进行分包
 
-![](./imgs/arc_1.jpg)
+![](./imgs/1.jpg)
 
-![](./imgs/arc_2.jpg)
+![](./imgs/2.jpg)
 
 ### 痛点
 
@@ -30,20 +30,20 @@
 2. top层的module内部采用的是mvp模式,该层的moudle都可以单独开发测试，并打包成apk
 3. bottom层的CoreModel主要用于统一封装该层其他组件，提供一些开源库更加简洁用法，其它两层可直接依赖CoreModel
 
-![](./imgs/arc_3.jpg)
+![](./imgs/3.jpg)
 
 ### top module
 
 1. top层的module主要采用mvp模式，业务代码转移到presenter，数据来源统一到DataManger中
 2. 简单的页面逻辑，可以省略掉presenter层，直接在view层使用DataManger
 
-![](./imgs/arc_5.jpg)
+![](./imgs/5.jpg)
 
 ### top module communication
 
 top层module之间的交互，采用 [路由router](https://github.com/drakeet/Floo)
 
-![](./imgs/arc_6.jpg)
+![](./imgs/6.jpg)
 
 ### 代码控制
 
