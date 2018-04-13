@@ -9,9 +9,9 @@
 1. 项目代码整体上分成两层，公共代码放在common、umeng、ocrlibrary，业务类代码放在app内。
 2. app module内部采用的是mvc模式，ui部分按照业务进行分包
 
-![](./imgs/images/arc_1.jpg)
+![](imgs/arc_1.jpg)
 
-![](./imgs/images/arc_2.jpg)
+![](imgs/arc_2.jpg)
 
 ### 痛点
 
@@ -28,31 +28,20 @@
 2. top层的module内部采用的是mvp模式,该层的moudle都可以单独开发测试，并打包成apk
 3. bottom层的CoreModel主要用于统一封装该层其他组件，提供一些开源库更加简洁用法，其它两层可直接依赖CoreModel
 
-![](./imgs/images/arc_3.jpg)
+![](./imgs/arc_3.jpg)
 
 ### top module
 
 1. top层的module主要采用mvp模式，业务代码转移到presenter，数据来源统一到DataManger中
 2. 简单的页面逻辑，可以省略掉presenter层，直接在view层使用DataManger
 
-![](./imgs/images/arc_5.jpg)
+![](./imgs/arc_5.jpg)
 
 ### top module communication
 
 top层module之间的交互，采用 [路由router](https://github.com/drakeet/Floo)
 
-![](./imgs/images/arc_6.jpg)
-
-## hybird开发模式
-
-项目中很多业务可以直接用H5方式直接书写。
-
-1. 通过预先定义的bridge协议方法通信
-2. 原生和h5之间页面跳转通过 [路由router](https://github.com/drakeet/Floo)，h5之间页面跳转通过[vue-router](https://router.vuejs.org/zh-cn/)
-3. 页面上的点击位，全部可以在服务器直接配成路由链接的方式，当用户点击是直接用路由做跳转。如果当线上的包所跳转的原生界面出现了紧急bug，我们就可以直接把路由路径切换成H5页面，这样就可以不用发包升级啦
-4. 考虑到vue页面会再第一次加载的时候可能比较慢，我们可以直接在首页打开的时候，开启一个一像素页面进行预加载。
-
-![](./imgs/images/arc_7.jpg)
+![](./imgs/arc_6.jpg)
 
 ### 代码控制
 
@@ -80,4 +69,3 @@ top层module之间的交互，采用 [路由router](https://github.com/drakeet/F
 2. 抽出代码，构建出bottom层中的module
 3. 抽出代码，构建出middle层中的module
 4. 抽出代码，构建出top层中的module
-5. 替换部分原生页面为H5，逐渐大规模采用H5页面开发
