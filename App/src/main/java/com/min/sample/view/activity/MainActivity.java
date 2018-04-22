@@ -33,7 +33,4 @@ public class MainActivity extends BaseActivity {
         return 0;
     }
 
-    @Override
-    public void onBackPressed() {
-    }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">车国收银台</string>
+    <string name="app_name">收钱吧</string>
     <string name="system_init">系统初始化</string>
     <string name="crash_desk">收银台</string>
     <string name="trans_bill">交易账单</string>

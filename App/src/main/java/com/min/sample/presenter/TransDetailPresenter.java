@@ -71,6 +71,7 @@ public class TransDetailPresenter extends TransDetailContract.Presenter {
             getMvpView().updoSuccess();
             DataManager.getMobileService()
                     .addTransInfo(record)
+                    .takeUntil(bindUtilDetach())
                     .compose(RxUtil.handleServerResult())
                     .subscribe(o -> {
                         UploadFailReqService.startService(context);

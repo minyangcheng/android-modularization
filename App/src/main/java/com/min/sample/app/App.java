@@ -1,16 +1,12 @@
 package com.min.sample.app;
 
+import com.min.core.base.BaseApp;
+import com.min.core.util.WebHandler;
 import com.min.sample.BuildConfig;
 import com.min.sample.util.BuglyUtil;
 import com.min.sample.util.pos.PosUtil;
-import com.min.core.base.BaseApp;
-import com.min.core.util.WebHandler;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import me.drakeet.floo.Floo;
-import me.drakeet.floo.Target;
 import me.drakeet.floo.extensions.LogInterceptor;
 import me.drakeet.floo.extensions.OpenDirectlyHandler;
 
@@ -27,23 +23,13 @@ public class App extends BaseApp {
         initRouter();
     }
 
-    @Override
-    public void onTerminate() {
-        PosUtil.destory(getContext());
-    }
-
     public void initRouter() {
-        Map<String, Target> mappings = new HashMap<>();
-        mappings.put("MainOrderActivity", new Target("cg://cheguo.com/order"));
-
         Floo.configuration()
                 .setDebugEnabled(BuildConfig.DEBUG)
                 .addRequestInterceptor(new LogInterceptor("Request"))
                 .addTargetInterceptor(new LogInterceptor("Target"))
                 .addTargetNotFoundHandler(new WebHandler())
                 .addTargetNotFoundHandler(new OpenDirectlyHandler());
-
-        Floo.apply(mappings);
     }
 
 }

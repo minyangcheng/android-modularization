@@ -235,7 +235,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
     private void sure() {
         double amount = getAmount();
-        mPresenter.pay(this, amount, mT1Tv.isSelected());
+//        mPresenter.pay(this, amount, mT1Tv.isSelected());
+        showHudDialog();
     }
 
     @Override

@@ -74,7 +74,7 @@ android {
             buildConfigField 'String', 'APP_SECRET', '"1234567890"'
         }
         if (name.contentEquals("beta_in")) {
-            buildConfigField 'String', 'YINSHENG_ID', '"24B46626917A8E7DF6E4FE8EAC73B938"'
+            buildConfigField 'String', 'YINSHENG_ID', '"123"'
         }
     }
 

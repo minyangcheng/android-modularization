@@ -91,6 +91,7 @@ public class MainPresenter extends MainContract.Presenter {
 
         DataManager.getMobileService()
                 .addTransInfo(record)
+                .takeUntil(bindUtilDetach())
                 .compose(RxUtil.handleServerResult())
                 .subscribe(o -> {
                     UploadFailReqService.startService(context);

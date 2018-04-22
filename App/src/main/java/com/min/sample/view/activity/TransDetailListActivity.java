@@ -3,6 +3,7 @@ package com.min.sample.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import com.min.core.bean.BaseBean;
 import com.min.core.util.RxEventBus;
 import com.min.core.util.RxRefreshLoader;
 import com.min.ui.widget.CenterTitleToolbar;
+import com.min.ui.widget.recyclerview.OnRecyclerItemClickListener;
 import com.min.ui.widget.refresh.RefreshLoaderView;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
@@ -91,6 +93,17 @@ public class TransDetailListActivity extends BaseActivity {
         };
 
         mAdapter.setOnItemClickLitener((v, p) -> TransDetailDialog.show(getSupportFragmentManager(), mAdapter.getData().get(p)));
+
+//        mRxRefreshLoader.mListRv.addOnItemTouchListener(new OnRecyclerItemClickListener(mRxRefreshLoader.mListRv) {
+//
+//            @Override
+//            public void onItemClick(RecyclerView.ViewHolder vh, int position) {
+//            }
+//
+//            @Override
+//            public void onItemLongClick(RecyclerView.ViewHolder vh, int position) {
+//            }
+//        });
 
         mRxRefreshLoader.startLoad();
     }

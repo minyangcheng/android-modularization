@@ -6,17 +6,21 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding.view.RxView;
+import com.min.common.util.FragmentUtils;
+import com.min.common.util.SpanUtils;
+import com.min.common.util.ToastUtils;
+import com.min.core.base.BaseDialog;
+import com.min.core.base.BaseFragment;
+import com.min.core.base.BasePopupWindow;
 import com.min.sample.R;
 import com.min.sample.contract.InitContract;
 import com.min.sample.presenter.InitPresenter;
 import com.min.sample.util.Util;
-import com.jakewharton.rxbinding.view.RxView;
-import com.min.common.util.FragmentUtils;
-import com.min.common.util.SpanUtils;
-import com.min.core.base.BaseFragment;
-import com.min.core.util.UIUtil;
+import com.min.sample.view.dialog.PayDialogFragment;
 import com.min.ui.widget.CenterTitleToolbar;
 
 import java.util.concurrent.TimeUnit;
@@ -71,17 +75,12 @@ public class InitFragment extends BaseFragment implements InitContract.View {
         SpanUtils spanUtils = new SpanUtils();
         spanUtils.append("一.系统参数设置").setFontSize(15, true).setForegroundColor(Color.parseColor("#333333"))
                 .appendLine()
-                .append("1.点击“初始化设置”，选择“商户参数设置”，输入终端设备号，点击“更新商户号和商户名称”按钮。").setFontSize(14, true).setForegroundColor(Color.parseColor("#666666"))
+                .append("1.点击“初始化设置”，输入终端设备号。").setFontSize(14, true).setForegroundColor(Color.parseColor("#666666"))
                 .appendLine()
-                .append("2.选择“终端密钥管理”，插入密钥卡，设备会自动下载密钥数据，下载完成后，点击“签到”按钮。").setFontSize(14, true).setForegroundColor(Color.parseColor("#666666"))
-                .appendLine()
-                .append("3.勾选初始化设置右侧的勾选按钮。").setFontSize(14, true).setForegroundColor(Color.parseColor("#666666"))
-                .appendLine()
-                .append("4.点击“初始化完成”按钮，完成初始化。").setFontSize(14, true).setForegroundColor(Color.parseColor("#666666"))
+                .append("2.设备会自动下载密钥数据，下载完成后，点击“签到”按钮。").setFontSize(14, true).setForegroundColor(Color.parseColor("#666666"))
                 .appendLine()
                 .append("二.重新设置").setFontSize(15, true).setForegroundColor(Color.parseColor("#333333"))
-                .appendLine()
-                .append("在“收银台”界面，若需重新进行系统初始化设置，则连续点击“收银台”标题8次，系统将重新跳转至系统初始化界面。").setFontSize(14, true).setForegroundColor(Color.parseColor("#666666"));
+                .appendLine();
         mExplainTv.setText(spanUtils.create());
 
         RxView.clicks(mInitTv)
@@ -126,19 +125,75 @@ public class InitFragment extends BaseFragment implements InitContract.View {
 
     @OnClick(R.id.tv_order)
     void clickOpenOrder() {
-        Floo.navigation(getContext(), "MainOrderActivity")
+        /**
+         * 对应于intent-filter配置
+         * <data
+         *    android:host="cheguo.com"
+         *    android:path="/order"
+         *    android:scheme="cg" />
+         */
+        Floo.navigation(getContext(), "cg://cheguo.com/order")
                 .appendQueryParameter("company_name", "cheguo")
                 .appendQueryParameter("user_id", "minych")
                 .putExtra("isLogin", true)
                 .start();
+    }
 
-        UIUtil.getMainHandler().postDelayed(() -> {
-            Floo.navigation(getContext(), "cg://cheguo.com/order")
-                    .appendQueryParameter("company_name", "cheguo")
-                    .appendQueryParameter("user_id", "minych")
-                    .putExtra("isLogin", true)
-                    .start();
-        }, 300);
+    @OnClick(R.id.btn_popup)
+    void clickPopup(View view) {
+        BasePopupWindow popupWindow = new BasePopupWindow(getActivity()) {
+
+            @Override
+            protected void onViewCreate(View view) {
+                super.onViewCreate(view);
+                view.findViewById(R.id.view_fl).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+                    }
+                });
+            }
+
+            @Override
+            protected int getLayoutId() {
+                return R.layout.popup_pay;
+            }
+        };
+        popupWindow.showAsDropDown(view);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                ToastUtils.showShort("popup window dismiss");
+            }
+        });
+    }
+
+    @OnClick(R.id.btn_dialog)
+    void clickDialog() {
+        final BaseDialog dialog = new BaseDialog(getActivity()) {
+            @Override
+            protected int getLayoutId() {
+                return R.layout.dialog_fragment_pay;
+            }
+
+            @Override
+            protected void onViewCreate(View view) {
+                super.onViewCreate(view);
+                view.findViewById(R.id.view_fl).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+                    }
+                });
+            }
+        };
+        dialog.show();
+    }
+
+    @OnClick(R.id.btn_fragment_dialog)
+    void clickFragmentDialog() {
+        PayDialogFragment dialogFragment = new PayDialogFragment();
+        dialogFragment.show(getFragmentManager(), dialogFragment.getTag());
     }
 
     @OnClick(R.id.tv_done)

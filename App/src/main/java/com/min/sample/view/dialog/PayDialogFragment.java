@@ -1,4 +1,4 @@
-package com.min.sample.view;
+package com.min.sample.view.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,11 +13,11 @@ import butterknife.OnClick;
  * Created by minyangcheng on 2017/9/19.
  */
 
-public class OrderDialogFragment extends BaseDialogFragment {
+public class PayDialogFragment extends BaseDialogFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.dialog_fragment_order;
+        return R.layout.dialog_fragment_pay;
     }
 
     @Override

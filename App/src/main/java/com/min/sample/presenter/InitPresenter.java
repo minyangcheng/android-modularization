@@ -3,12 +3,11 @@ package com.min.sample.presenter;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
+import com.min.common.util.EmptyUtils;
 import com.min.sample.app.AppConstants;
 import com.min.sample.contract.InitContract;
 import com.min.sample.data.DataManager;
 import com.min.sample.util.pos.PosUtil;
-import com.min.common.util.EmptyUtils;
-import com.min.common.util.ToastUtils;
 
 /**
  * Created by minyangcheng on 2017/9/20.
@@ -18,14 +17,6 @@ public class InitPresenter extends InitContract.Presenter {
 
     @Override
     public boolean check() {
-        if (EmptyUtils.isEmpty(DataManager.getPreferencesHelper().getMerchantNo())) {
-            ToastUtils.showShort("请先完成初始化设置");
-            return false;
-        }
-        if (EmptyUtils.isEmpty(DataManager.getPreferencesHelper().getMerchantName())) {
-            ToastUtils.showShort("请先完成初始化设置");
-            return false;
-        }
         return true;
     }
 
